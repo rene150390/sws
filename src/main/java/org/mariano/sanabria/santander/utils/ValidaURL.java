@@ -9,7 +9,7 @@ public class ValidaURL {
 		 try {
 			 
 			 HttpURLConnection.setFollowRedirects(false);
-	          HttpURLConnection con = (HttpURLConnection) new URL(URLName).openConnection();
+	         HttpURLConnection con = (HttpURLConnection) new URL(URLName).openConnection();
 	          con.setRequestMethod("HEAD");
 	          return (con.getResponseCode() == HttpURLConnection.HTTP_OK);
 	        }

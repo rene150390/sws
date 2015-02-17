@@ -69,8 +69,30 @@ public class MainController {
 		List<String> lista = new ArrayList<String>();
 		while(true){
 			cont ++;
+			
+				fullURL = urlImg+cont+imgExt;
+				if(!ValidaURL.exists(fullURL))
+					break;
+				lista.add(fullURL);
+			
+		
+		}
+		WebServiceResponse response = new WebServiceResponse();
+		WSetImages img = new WSetImages("Ok", lista, cont-1);
+		response.setRespuesta(img);
+		return response;
+	}
+	@RequestMapping(value="/d", method=RequestMethod.GET)
+	public @ResponseBody WebServiceResponse getCarrusel2() {
+		String urlImg = "http://santander-wordpress.s3.amazonaws.com/wp-content/uploads/2014/12/unlimited_";
+		String imgExt = ".jpg";
+		String fullURL ="";
+		int cont = 0;
+		List<String> lista = new ArrayList<String>();
+		while(true){
+			cont ++;
 			if(cont < 10){
-				fullURL = urlImg+""+cont+""+imgExt;
+				fullURL = urlImg+"0"+cont+""+imgExt;
 				if(!ValidaURL.exists(fullURL))
 					break;
 				lista.add(fullURL);
