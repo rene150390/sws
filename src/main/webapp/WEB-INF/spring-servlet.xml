@@ -27,7 +27,8 @@
 	</bean>
 	
 	
-	
+	<bean id="responseHeader" class="org.mariano.sanabria.santander.utils.ResponseHeader">
+	</bean>
 	
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="messageConverters">

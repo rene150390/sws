@@ -7,21 +7,20 @@ import java.util.Map;
 
 public class ResponseHeader {
 	
-	private URL obj;
-	private URLConnection conn;
-	private Map<String, List<String>> map;
+	
 	
 	public ResponseHeader(){}
 	
 	
 	
-	public String prueba(String url){
-	   
+	public static String prueba(String url){
+		Map<String, List<String>> map = null;
 		try {
 		   
-		   obj = new URL(url);
-		   conn = obj.openConnection();
-		   map = conn.getHeaderFields();
+			URL obj = new URL(url);
+		    URLConnection conn = obj.openConnection();
+		    map = conn.getHeaderFields();
+		    System.out.println(""+map);
 		   
 		} catch (Exception e) {
 		    	e.printStackTrace();
@@ -29,27 +28,5 @@ public class ResponseHeader {
 		return map.get("Last-Modified").get(0);
 	}
 
-	public URL getObj() {
-		return obj;
-	}
-
-	public void setObj(URL obj) {
-		this.obj = obj;
-	}
-
-	public URLConnection getConn() {
-		return conn;
-	}
-
-	public void setConn(URLConnection conn) {
-		this.conn = conn;
-	}
-
-	public Map<String, List<String>> getMap() {
-		return map;
-	}
-
-	public void setMap(Map<String, List<String>> map) {
-		this.map = map;
-	}
+	
 }
