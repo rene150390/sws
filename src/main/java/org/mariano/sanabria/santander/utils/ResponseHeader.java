@@ -13,7 +13,7 @@ public class ResponseHeader {
 	
 	
 	
-	public static String prueba(String url){
+	public static String ultimoModificado(String url){
 		Map<String, List<String>> map = null;
 		try {
 		   
