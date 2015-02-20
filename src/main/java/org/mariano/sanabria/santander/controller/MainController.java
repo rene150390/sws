@@ -205,7 +205,7 @@ public class MainController {
 		pojo1.setLastmodified(ResponseHeader.ultimoModificado(urlB));
 		listaUpdate.add(pojo1);
 		
-		if(pojo.getLastmodified().equals(cadenasModificado.get(1))){
+		if(pojo1.getLastmodified().equals(cadenasModificado.get(1))){
 			pojo1.setIsupdate("no");
 			//isupdate = "no";
 		}else{
