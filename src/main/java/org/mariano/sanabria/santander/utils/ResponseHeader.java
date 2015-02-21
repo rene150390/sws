@@ -20,7 +20,7 @@ public class ResponseHeader {
 			URL obj = new URL(url);
 		    URLConnection conn = obj.openConnection();
 		    map = conn.getHeaderFields();
-		    System.out.println(""+map);
+		    //System.out.println(""+map);
 		   
 		} catch (Exception e) {
 		    	e.printStackTrace();

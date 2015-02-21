@@ -95,6 +95,7 @@ public class MainController {
 				if(!ValidaURL.exists(fullURL))
 					break;
 				pojo.setLastmodified(ResponseHeader.ultimoModificado(fullURL));
+				pojo.setImgurl(fullURL);
 				if(cadenasModificado.size() > cont -1){
 					if(pojo.getLastmodified().equals(cadenasModificado.get(cont-1))){
 						pojo.setIsupdate("no");
@@ -141,7 +142,7 @@ public class MainController {
 		JsonParser.createJSON(r, listaUpdate, "carrusel");
 		
 		WebServiceResponse response = new WebServiceResponse();
-		WSetUpdateStatus img = new WSetUpdateStatus("Ok", isupdate, modificadas, nuevas);
+		WSetUpdateStatus img = new WSetUpdateStatus("Ok", isupdate, modificadas, nuevas, cont-1);
 		response.setRespuesta(img);
 		return response;
 	}
@@ -216,7 +217,7 @@ public class MainController {
 		
 		JsonParser.createJSON(r, listaUpdate, "dos");
 		WebServiceResponse response = new WebServiceResponse();
-		WSetUpdateStatus img = new WSetUpdateStatus("Ok", isupdate, modificadas, nuevas);
+		WSetUpdateStatus img = new WSetUpdateStatus("Ok", isupdate, modificadas, nuevas, 2);
 		response.setRespuesta(img);
 		return response;
 	}
@@ -298,7 +299,7 @@ public class MainController {
 		JsonParser.createJSON(r, listaUpdate, "carrusel1");
 		
 		WebServiceResponse response = new WebServiceResponse();
-		WSetUpdateStatus img = new WSetUpdateStatus("Ok", isupdate, modificadas, nuevas);
+		WSetUpdateStatus img = new WSetUpdateStatus("Ok", isupdate, modificadas, nuevas, cont-1);
 		response.setRespuesta(img);
 		return response;
 	}
@@ -362,6 +363,7 @@ public class MainController {
 				if(!ValidaURL.exists(fullURL))
 					break;
 				pojo.setLastmodified(ResponseHeader.ultimoModificado(fullURL));
+				pojo.setImgurl(fullURL);
 				if(cadenasModificado.size() > cont -1){
 					if(pojo.getLastmodified().equals(cadenasModificado.get(cont-1))){
 						pojo.setIsupdate("no");
@@ -407,7 +409,7 @@ public class MainController {
 		JsonParser.createJSON(r, listaUpdate, "carrusel2");
 		
 		WebServiceResponse response = new WebServiceResponse();
-		WSetUpdateStatus img = new WSetUpdateStatus("Ok", isupdate, modificadas, nuevas);
+		WSetUpdateStatus img = new WSetUpdateStatus("Ok", isupdate, modificadas, nuevas, cont-1);
 		response.setRespuesta(img);
 		return response;
 	}
@@ -491,7 +493,7 @@ public class MainController {
 		JsonParser.createJSON(r, listaUpdate, "file");
 		
 		WebServiceResponse response = new WebServiceResponse();
-		WSetUpdateStatus img = new WSetUpdateStatus("Ok", isupdate, modificadas, nuevas);
+		WSetUpdateStatus img = new WSetUpdateStatus("Ok", isupdate, modificadas, nuevas, cont-1);
 		response.setRespuesta(img);
 		return response;
 	}
