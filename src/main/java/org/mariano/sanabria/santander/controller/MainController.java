@@ -3,7 +3,6 @@ package org.mariano.sanabria.santander.controller;
 
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +37,7 @@ public class MainController {
 	
 	@RequestMapping(value="/a", method=RequestMethod.GET)
 	public @ResponseBody WebServiceResponse getCarrusel(HttpServletRequest r) throws IOException {
-		String urlImg = "http://santander-wordpress.s3.amazonaws.com/wp-content/uploads/2014/12/santander_";
+		String urlImg = "http://iosdep.anzen.com.mx/img_catalogo/santander/santander_";
 		String imgExt = ".jpg";
 		String fullURL ="";
 		List<ImgUpdatePOJO> listaUpdate = new ArrayList<ImgUpdatePOJO>();
@@ -76,7 +75,7 @@ public class MainController {
 	}
 	@RequestMapping(value="/a1", method=RequestMethod.GET)
 	public @ResponseBody WebServiceResponse getCarruselUpdate(HttpServletRequest r) throws IOException {
-		String urlImg = "http://santander-wordpress.s3.amazonaws.com/wp-content/uploads/2014/12/santander_";
+		String urlImg = "http://iosdep.anzen.com.mx/img_catalogo/santander/santander_";
 		String imgExt = ".jpg";
 		String fullURL ="";
 		List<String> modificadas = new ArrayList<String>();
@@ -223,7 +222,7 @@ public class MainController {
 	}
 	@RequestMapping(value="/c", method=RequestMethod.GET)
 	public @ResponseBody WebServiceResponse getCarrusel1(HttpServletRequest r) throws IOException {
-		String urlImg = "http://santander-wordpress.s3.amazonaws.com/wp-content/uploads/2014/12/paso";
+		String urlImg = "http://iosdep.anzen.com.mx/img_catalogo/instructions/paso";
 		String imgExt = ".jpg";
 		String fullURL ="";
 		int cont = 0;
@@ -257,7 +256,7 @@ public class MainController {
 	}
 	@RequestMapping(value="/c1", method=RequestMethod.GET)
 	public @ResponseBody WebServiceResponse getCarrusel1Update(HttpServletRequest r) throws IOException {
-		String urlImg = "http://santander-wordpress.s3.amazonaws.com/wp-content/uploads/2014/12/paso";
+		String urlImg = "http://iosdep.anzen.com.mx/img_catalogo/instructions/paso";
 		String imgExt = ".jpg";
 		String fullURL ="";
 		int cont = 0;
@@ -306,7 +305,7 @@ public class MainController {
 	
 	@RequestMapping(value="/d", method=RequestMethod.GET)
 	public @ResponseBody WebServiceResponse getCarrusel2(HttpServletRequest r) throws IOException {
-		String urlImg = "http://santander-wordpress.s3.amazonaws.com/wp-content/uploads/2014/12/unlimited_";
+		String urlImg = "http://iosdep.anzen.com.mx/img_catalogo/unlimited/unlimited_";
 		String imgExt = ".jpg";
 		String fullURL ="";
 		List<ImgUpdatePOJO> listaUpdate = new ArrayList<ImgUpdatePOJO>();
@@ -344,7 +343,7 @@ public class MainController {
 	}
 	@RequestMapping(value="/d1", method=RequestMethod.GET)
 	public @ResponseBody WebServiceResponse getCarrusel2Update(HttpServletRequest r) throws IOException {
-		String urlImg = "http://santander-wordpress.s3.amazonaws.com/wp-content/uploads/2014/12/unlimited_";
+		String urlImg = "http://iosdep.anzen.com.mx/img_catalogo/unlimited/unlimited_";
 		String imgExt = ".jpg";
 		String fullURL ="";
 		
@@ -416,7 +415,7 @@ public class MainController {
 	@RequestMapping(value="/prueba", method=RequestMethod.GET)
 	public @ResponseBody WebServiceResponse test(HttpServletRequest r) throws IOException {
 		String urlImg = "http://54.193.182.168:8980/DummyHA/img/imagen";
-		String imgExt = ".png";
+		String imgExt = ".jpg";
 		String fullURL ="";
 		int cont = 0;
 		List<String> lista = new ArrayList<String>();
