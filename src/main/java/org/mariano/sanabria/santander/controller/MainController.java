@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -36,8 +37,8 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/a", method=RequestMethod.GET)
-	public @ResponseBody WebServiceResponse getCarrusel(HttpServletRequest r) throws IOException {
-		String urlImg = "http://iosdep.anzen.com.mx/img_catalogo/santander/santander_";
+	public @ResponseBody WebServiceResponse getCarrusel(HttpServletRequest r, @RequestParam String imei) throws IOException {
+		String urlImg = "http://s3-us-west-1.amazonaws.com/anzen-mobile-apps/img_catalog/santander/santander_";
 		String imgExt = ".jpg";
 		String fullURL ="";
 		List<ImgUpdatePOJO> listaUpdate = new ArrayList<ImgUpdatePOJO>();
@@ -67,15 +68,15 @@ public class MainController {
 			listaUpdate.add(pojo);
 		
 		}
-		JsonParser.createJSON(r, listaUpdate, "carrusel");
+		JsonParser.createJSON(r, listaUpdate, "carrusel"+imei);
 		WebServiceResponse response = new WebServiceResponse();
 		WSetImages img = new WSetImages("Ok", lista, cont-1);
 		response.setRespuesta(img);
 		return response;
 	}
 	@RequestMapping(value="/a1", method=RequestMethod.GET)
-	public @ResponseBody WebServiceResponse getCarruselUpdate(HttpServletRequest r) throws IOException {
-		String urlImg = "http://iosdep.anzen.com.mx/img_catalogo/santander/santander_";
+	public @ResponseBody WebServiceResponse getCarruselUpdate(HttpServletRequest r, @RequestParam String imei) throws IOException {
+		String urlImg = "http://s3-us-west-1.amazonaws.com/anzen-mobile-apps/img_catalog/santander/santander_";
 		String imgExt = ".jpg";
 		String fullURL ="";
 		List<String> modificadas = new ArrayList<String>();
@@ -83,7 +84,7 @@ public class MainController {
 		int cont = 0;
 		
 		List<ImgUpdatePOJO> listaUpdate = new ArrayList<ImgUpdatePOJO>();
-		List<String> cadenasModificado = JsonParser.readJSON(r, "carrusel");
+		List<String> cadenasModificado = JsonParser.readJSON(r, "carrusel"+imei);
 		String isupdate = "No";
 		while(true){
 			
@@ -138,7 +139,7 @@ public class MainController {
 			listaUpdate.add(pojo);
 		
 		}
-		JsonParser.createJSON(r, listaUpdate, "carrusel");
+		JsonParser.createJSON(r, listaUpdate, "carrusel"+imei);
 		
 		WebServiceResponse response = new WebServiceResponse();
 		WSetUpdateStatus img = new WSetUpdateStatus("Ok", isupdate, modificadas, nuevas, cont-1);
@@ -147,25 +148,25 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/b", method=RequestMethod.GET)
-	public @ResponseBody WebServiceResponse getImg(HttpServletRequest r) throws IOException {
+	public @ResponseBody WebServiceResponse getImg(HttpServletRequest r, @RequestParam String imei) throws IOException {
 		
 		List<String> lista = new ArrayList<String>();
 		List<ImgUpdatePOJO> listaUpdate = new ArrayList<ImgUpdatePOJO>();
 		ImgUpdatePOJO pojo = new ImgUpdatePOJO();
-		lista.add("http://santander-wordpress.s3.amazonaws.com/wp-content/uploads/2014/11/promo-puntosS.jpg");
+		lista.add("http://s3-us-west-1.amazonaws.com/anzen-mobile-apps/img_catalog/promos/promo_01.jpg");
 		pojo.setIsupdate("");
-		pojo.setImgurl("http://santander-wordpress.s3.amazonaws.com/wp-content/uploads/2014/11/promo-puntosS.jpg");
-		pojo.setLastmodified(ResponseHeader.ultimoModificado("http://santander-wordpress.s3.amazonaws.com/wp-content/uploads/2014/11/promo-puntosS.jpg"));
+		pojo.setImgurl("http://s3-us-west-1.amazonaws.com/anzen-mobile-apps/img_catalog/promos/promo_01.jpg");
+		pojo.setLastmodified(ResponseHeader.ultimoModificado("http://s3-us-west-1.amazonaws.com/anzen-mobile-apps/img_catalog/promos/promo_01.jpg"));
 		listaUpdate.add(pojo);
 		
 		ImgUpdatePOJO pojo1 = new ImgUpdatePOJO();
-		lista.add("http://santander-wordpress.s3.amazonaws.com/wp-content/uploads/2014/11/promo-puntosB.jpg");
+		lista.add("http://s3-us-west-1.amazonaws.com/anzen-mobile-apps/img_catalog/promos/promo_02.jpg");
 		pojo1.setIsupdate("");
-		pojo1.setImgurl("http://santander-wordpress.s3.amazonaws.com/wp-content/uploads/2014/11/promo-puntosB.jpg");
-		pojo1.setLastmodified(ResponseHeader.ultimoModificado("http://santander-wordpress.s3.amazonaws.com/wp-content/uploads/2014/11/promo-puntosB.jpg"));
+		pojo1.setImgurl("http://s3-us-west-1.amazonaws.com/anzen-mobile-apps/img_catalog/promos/promo_02.jpg");
+		pojo1.setLastmodified(ResponseHeader.ultimoModificado("http://s3-us-west-1.amazonaws.com/anzen-mobile-apps/img_catalog/promos/promo_02.jpg"));
 		listaUpdate.add(pojo1);
 		
-		JsonParser.createJSON(r, listaUpdate, "dos");
+		JsonParser.createJSON(r, listaUpdate, "dos"+imei);
 		WebServiceResponse response = new WebServiceResponse();
 		WSetImages img = new WSetImages("Ok", lista, 2);
 		response.setRespuesta(img);
@@ -173,18 +174,18 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/b1", method=RequestMethod.GET)
-	public @ResponseBody WebServiceResponse getImgUpdate(HttpServletRequest r) throws IOException {
+	public @ResponseBody WebServiceResponse getImgUpdate(HttpServletRequest r, @RequestParam String imei) throws IOException {
 		
 		String isupdate = "no";
 		
 		List<String> lista = new ArrayList<String>();
 		List<ImgUpdatePOJO> listaUpdate = new ArrayList<ImgUpdatePOJO>();
-		List<String> cadenasModificado = JsonParser.readJSON(r, "dos");
+		List<String> cadenasModificado = JsonParser.readJSON(r, "dos"+imei);
 		List<String> modificadas = new ArrayList<String>();
 		List<String> nuevas = new ArrayList<String>();
 		ImgUpdatePOJO pojo = new ImgUpdatePOJO();
 		
-		String urlS = "http://santander-wordpress.s3.amazonaws.com/wp-content/uploads/2014/11/promo-puntosS.jpg"; 
+		String urlS = "http://s3-us-west-1.amazonaws.com/anzen-mobile-apps/img_catalog/promos/promo_01.jpg"; 
 		lista.add(urlS);
 		pojo.setImgurl(urlS);
 		pojo.setLastmodified(ResponseHeader.ultimoModificado(urlS));
@@ -199,7 +200,7 @@ public class MainController {
 			isupdate = "yes";
 		}
 		ImgUpdatePOJO pojo1 = new ImgUpdatePOJO();
-		String urlB = "http://santander-wordpress.s3.amazonaws.com/wp-content/uploads/2014/11/promo-puntosB.jpg"; 
+		String urlB = "http://s3-us-west-1.amazonaws.com/anzen-mobile-apps/img_catalog/promos/promo_02.jpg"; 
 		lista.add(urlB);
 		pojo1.setImgurl(urlB);
 		pojo1.setLastmodified(ResponseHeader.ultimoModificado(urlB));
@@ -214,15 +215,15 @@ public class MainController {
 			isupdate = "yes";
 		}
 		
-		JsonParser.createJSON(r, listaUpdate, "dos");
+		JsonParser.createJSON(r, listaUpdate, "dos"+imei);
 		WebServiceResponse response = new WebServiceResponse();
 		WSetUpdateStatus img = new WSetUpdateStatus("Ok", isupdate, modificadas, nuevas, 2);
 		response.setRespuesta(img);
 		return response;
 	}
 	@RequestMapping(value="/c", method=RequestMethod.GET)
-	public @ResponseBody WebServiceResponse getCarrusel1(HttpServletRequest r) throws IOException {
-		String urlImg = "http://iosdep.anzen.com.mx/img_catalogo/instructions/paso";
+	public @ResponseBody WebServiceResponse getCarrusel1(HttpServletRequest r, @RequestParam String imei) throws IOException {
+		String urlImg = "http://s3-us-west-1.amazonaws.com/anzen-mobile-apps/img_catalog/instructions/paso";
 		String imgExt = ".jpg";
 		String fullURL ="";
 		int cont = 0;
@@ -247,7 +248,7 @@ public class MainController {
 			listaUpdate.add(pojo);
 		
 		}
-		JsonParser.createJSON(r, listaUpdate, "carrusel1");
+		JsonParser.createJSON(r, listaUpdate, "carrusel1"+imei);
 		
 		WebServiceResponse response = new WebServiceResponse();
 		WSetImages img = new WSetImages("Ok", lista, cont-1);
@@ -255,14 +256,14 @@ public class MainController {
 		return response;
 	}
 	@RequestMapping(value="/c1", method=RequestMethod.GET)
-	public @ResponseBody WebServiceResponse getCarrusel1Update(HttpServletRequest r) throws IOException {
-		String urlImg = "http://iosdep.anzen.com.mx/img_catalogo/instructions/paso";
+	public @ResponseBody WebServiceResponse getCarrusel1Update(HttpServletRequest r, @RequestParam String imei) throws IOException {
+		String urlImg = "http://s3-us-west-1.amazonaws.com/anzen-mobile-apps/img_catalog/instructions/paso";
 		String imgExt = ".jpg";
 		String fullURL ="";
 		int cont = 0;
 		List<String> modificadas = new ArrayList<String>();
 		List<ImgUpdatePOJO> listaUpdate = new ArrayList<ImgUpdatePOJO>();
-		List<String> cadenasModificado = JsonParser.readJSON(r, "carrusel1");
+		List<String> cadenasModificado = JsonParser.readJSON(r, "carrusel1"+imei);
 		List<String> nuevas = new ArrayList<String>();
 		String isupdate = "No";
 		while(true){
@@ -295,7 +296,7 @@ public class MainController {
 			listaUpdate.add(pojo);
 		
 		}
-		JsonParser.createJSON(r, listaUpdate, "carrusel1");
+		JsonParser.createJSON(r, listaUpdate, "carrusel1"+imei);
 		
 		WebServiceResponse response = new WebServiceResponse();
 		WSetUpdateStatus img = new WSetUpdateStatus("Ok", isupdate, modificadas, nuevas, cont-1);
@@ -304,8 +305,8 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/d", method=RequestMethod.GET)
-	public @ResponseBody WebServiceResponse getCarrusel2(HttpServletRequest r) throws IOException {
-		String urlImg = "http://iosdep.anzen.com.mx/img_catalogo/unlimited/unlimited_";
+	public @ResponseBody WebServiceResponse getCarrusel2(HttpServletRequest r, @RequestParam String imei) throws IOException {
+		String urlImg = "http://s3-us-west-1.amazonaws.com/anzen-mobile-apps/img_catalog/unlimited/unlimited_";
 		String imgExt = ".jpg";
 		String fullURL ="";
 		List<ImgUpdatePOJO> listaUpdate = new ArrayList<ImgUpdatePOJO>();
@@ -335,15 +336,15 @@ public class MainController {
 			listaUpdate.add(pojo);
 		
 		}
-		JsonParser.createJSON(r, listaUpdate, "carrusel2");
+		JsonParser.createJSON(r, listaUpdate, "carrusel2"+imei);
 		WebServiceResponse response = new WebServiceResponse();
 		WSetImages img = new WSetImages("Ok", lista, cont-1);
 		response.setRespuesta(img);
 		return response;
 	}
 	@RequestMapping(value="/d1", method=RequestMethod.GET)
-	public @ResponseBody WebServiceResponse getCarrusel2Update(HttpServletRequest r) throws IOException {
-		String urlImg = "http://iosdep.anzen.com.mx/img_catalogo/unlimited/unlimited_";
+	public @ResponseBody WebServiceResponse getCarrusel2Update(HttpServletRequest r, @RequestParam String imei) throws IOException {
+		String urlImg = "http://s3-us-west-1.amazonaws.com/anzen-mobile-apps/img_catalog/unlimited/unlimited_";
 		String imgExt = ".jpg";
 		String fullURL ="";
 		
@@ -351,7 +352,7 @@ public class MainController {
 		List<String> modificadas = new ArrayList<String>();
 		List<String> nuevas = new ArrayList<String>();
 		List<ImgUpdatePOJO> listaUpdate = new ArrayList<ImgUpdatePOJO>();
-		List<String> cadenasModificado = JsonParser.readJSON(r, "carrusel2");
+		List<String> cadenasModificado = JsonParser.readJSON(r, "carrusel2"+imei);
 		String isupdate = "No";
 		while(true){
 			
@@ -405,7 +406,7 @@ public class MainController {
 			listaUpdate.add(pojo);
 		
 		}
-		JsonParser.createJSON(r, listaUpdate, "carrusel2");
+		JsonParser.createJSON(r, listaUpdate, "carrusel2"+imei);
 		
 		WebServiceResponse response = new WebServiceResponse();
 		WSetUpdateStatus img = new WSetUpdateStatus("Ok", isupdate, modificadas, nuevas, cont-1);
@@ -413,7 +414,7 @@ public class MainController {
 		return response;
 	}
 	@RequestMapping(value="/prueba", method=RequestMethod.GET)
-	public @ResponseBody WebServiceResponse test(HttpServletRequest r) throws IOException {
+	public @ResponseBody WebServiceResponse test(HttpServletRequest r, @RequestParam String imei) throws IOException {
 		String urlImg = "http://54.193.182.168:8980/DummyHA/img/imagen";
 		String imgExt = ".jpg";
 		String fullURL ="";
@@ -439,7 +440,7 @@ public class MainController {
 			listaUpdate.add(pojo);
 		
 		}
-		JsonParser.createJSON(r, listaUpdate, "file");
+		JsonParser.createJSON(r, listaUpdate, "file"+imei);
 		
 		WebServiceResponse response = new WebServiceResponse();
 		WSetImages img = new WSetImages("Ok", lista, cont-1);
@@ -448,7 +449,7 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/prueba1", method=RequestMethod.GET)
-	public @ResponseBody WebServiceResponse test1(HttpServletRequest r) throws IOException {
+	public @ResponseBody WebServiceResponse test1(HttpServletRequest r, @RequestParam String imei) throws IOException {
 		String urlImg = "http://54.193.182.168:8980/DummyHA/img/imagen";
 		String imgExt = ".png";
 		String fullURL ="";
@@ -457,7 +458,7 @@ public class MainController {
 		int cont = 0;
 		
 		List<ImgUpdatePOJO> listaUpdate = new ArrayList<ImgUpdatePOJO>();	
-		List<String> cadenasModificado = JsonParser.readJSON(r, "file");
+		List<String> cadenasModificado = JsonParser.readJSON(r, "file"+imei);
 		String isupdate = "No";
 		while(true){
 			
@@ -489,7 +490,7 @@ public class MainController {
 			listaUpdate.add(pojo);
 		
 		}
-		JsonParser.createJSON(r, listaUpdate, "file");
+		JsonParser.createJSON(r, listaUpdate, "file"+imei);
 		
 		WebServiceResponse response = new WebServiceResponse();
 		WSetUpdateStatus img = new WSetUpdateStatus("Ok", isupdate, modificadas, nuevas, cont-1);
