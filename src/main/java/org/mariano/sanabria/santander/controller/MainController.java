@@ -413,7 +413,98 @@ public class MainController {
 		response.setRespuesta(img);
 		return response;
 	}
-	@RequestMapping(value="/prueba", method=RequestMethod.GET)
+	@RequestMapping(value="/e", method=RequestMethod.GET)
+	public @ResponseBody WebServiceResponse getPromos(HttpServletRequest r, @RequestParam String imei) throws IOException {
+		String urlImg = "http://s3-us-west-1.amazonaws.com/anzen-mobile-apps/img_catalog/promos/promo_";
+		String imgExt = ".jpg";
+		String fullURL ="";
+		List<ImgUpdatePOJO> listaUpdate = new ArrayList<ImgUpdatePOJO>();
+		int cont = 0;
+		List<String> lista = new ArrayList<String>();
+		boolean flag = true;
+		while(flag){
+			
+			cont ++;
+			for(int i = 1; i < 3; i++){
+				ImgUpdatePOJO pojo = new ImgUpdatePOJO();
+				fullURL = urlImg+""+cont+""+i+""+imgExt;
+				if(!ValidaURL.exists(fullURL)){
+					flag = false;
+					break;
+				}
+				lista.add(fullURL);
+				pojo.setIsupdate("");
+				pojo.setImgurl(fullURL);
+				pojo.setLastmodified(ResponseHeader.ultimoModificado(fullURL));
+				listaUpdate.add(pojo);
+			}
+			
+		
+		}
+		JsonParser.createJSON(r, listaUpdate, "promos"+imei);
+		WebServiceResponse response = new WebServiceResponse();
+		WSetImages img = new WSetImages("Ok", lista, (cont-1)*2);
+		response.setRespuesta(img);
+		return response;
+	}
+	@RequestMapping(value="/e1", method=RequestMethod.GET)
+	public @ResponseBody WebServiceResponse getPromosUpdate(HttpServletRequest r, @RequestParam String imei) throws IOException {
+		String urlImg = "http://s3-us-west-1.amazonaws.com/anzen-mobile-apps/img_catalog/promos/promo_";
+		String imgExt = ".jpg";
+		String fullURL ="";
+		int cont = 0;
+		List<String> modificadas = new ArrayList<String>();
+		List<ImgUpdatePOJO> listaUpdate = new ArrayList<ImgUpdatePOJO>();
+		List<String> cadenasModificado = JsonParser.readJSON(r, "promos"+imei);
+		List<String> nuevas = new ArrayList<String>();
+		String isupdate = "No";
+		boolean flag = true;
+		int contador = 0;
+		while(flag){
+			
+			cont ++;
+			
+			for(int i = 1; i < 3; i++){
+				contador ++;
+				ImgUpdatePOJO pojo = new ImgUpdatePOJO();
+				fullURL = urlImg+cont+i+imgExt;
+				pojo.setImgurl(fullURL);
+				if(!ValidaURL.exists(fullURL)){
+					flag = false;	
+					break;
+				}
+				pojo.setLastmodified(ResponseHeader.ultimoModificado(fullURL));
+			
+				
+					if(cadenasModificado.size() > contador -1){
+						if(pojo.getLastmodified().equals(cadenasModificado.get(contador-1))){
+							pojo.setIsupdate("no");
+							//isupdate = "no";
+						}else{
+							pojo.setIsupdate("yes");
+							isupdate = "yes";
+							modificadas.add(pojo.getImgurl());
+						}
+					}else{
+						pojo.setIsupdate("yes");
+						isupdate = "yes";
+						nuevas.add(pojo.getImgurl());
+					}
+			
+				
+				listaUpdate.add(pojo);
+			}
+			
+		
+		}
+		JsonParser.createJSON(r, listaUpdate, "promos"+imei);
+		
+		WebServiceResponse response = new WebServiceResponse();
+		WSetUpdateStatus img = new WSetUpdateStatus("Ok", isupdate, modificadas, nuevas, (cont-1)*2);
+		response.setRespuesta(img);
+		return response;
+	}
+	/*@RequestMapping(value="/prueba", method=RequestMethod.GET)
 	public @ResponseBody WebServiceResponse test(HttpServletRequest r, @RequestParam String imei) throws IOException {
 		String urlImg = "http://54.193.182.168:8980/DummyHA/img/imagen";
 		String imgExt = ".jpg";
@@ -496,5 +587,5 @@ public class MainController {
 		WSetUpdateStatus img = new WSetUpdateStatus("Ok", isupdate, modificadas, nuevas, cont-1);
 		response.setRespuesta(img);
 		return response;
-	}
+	}*/
 }
